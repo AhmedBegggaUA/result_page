@@ -67,6 +67,7 @@ try:
     
     
     st.markdown('# Models visualization')
+    st.markdown('Here you can see the models of the different countries with an interval of one month')
     paises = get_UN_data()
     data = pd.read_csv("data/OxCGRT_latest.csv")
     data['Date'] = pd.to_datetime(data['Date'], format = '%Y%m%d')
@@ -453,6 +454,7 @@ try:
     
     
     st.markdown('# Models visualization')
+    st.markdown('Here you can see the evolution of the models in the different countries with an interval of 15 days.')
     paises = get_UN_data()
     data = pd.read_csv("data/OxCGRT_latest.csv")
     data['Date'] = pd.to_datetime(data['Date'], format = '%Y%m%d')
@@ -593,6 +595,7 @@ try:
     #        "Choose countries   ",paises_list
     #    )
     st.markdown('# Models visualization Overall')
+    st.markdown(' Here you can see the models prediction for the overall data')
     data = pd.read_csv("data/OxCGRT_latest.csv")
     data['Date'] = pd.to_datetime(data['Date'], format = '%Y%m%d')
     
