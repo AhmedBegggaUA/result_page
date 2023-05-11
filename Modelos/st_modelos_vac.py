@@ -89,6 +89,55 @@ try:
                         "2021-04-30"]
         months_list_short = ["jan","feb","mar","apr","may"]
         month = st.selectbox('Choose a month   ', months_list)
+        h7_waning = pd.read_csv('last_pred/h7_waning_pred.csv')
+        h7_waning['fecha'] = pd.to_datetime(h7_waning['fecha'], format = '%Y-%m-%d')
+        h7_waning['month'] = h7_waning['fecha'].dt.month
+        h7_waning = h7_waning[h7_waning['month'] == months_list_short.index(month)+1]
+        h7_waning = h7_waning[h7_waning['CountryName'] == country2]
+        fig = go.Figure()
+        fig.add_trace(go.Scatter(x = h7_waning['fecha'], y = h7_waning['Pred'], name = "Predicted Daily New Cases"))
+        #new_data = new_data.set_index("Date")
+        fig.update_layout(
+      margin=dict(l=20, r=20, t=20, b=20))
+        #fig.update_layout(plot_bgcolor='rgba(192, 192, 192, 192)',paper_bgcolor='rgba(192, 192, 192, 192)')
+        fig.update_yaxes(
+                    mirror=True,
+                    ticks='outside',
+                    showline=True,
+                    linecolor='grey',
+                    gridcolor='grey',
+                    title_text = "Predicted Cases"
+                )
+        # Change the template
+        
+        fig.update_xaxes(
+                    mirror=True,
+                    ticks='outside',
+                    showline=True,
+                    title_text = "Date",
+                    linecolor='grey',
+                    gridcolor='grey')
+        fig.update_layout(template = "ggplot2")
+        fig.update_layout(font_size = 15, legend_title = "Models", legend_title_font_size = 20, legend_font_color = "black")
+        # Make visible the xaxis and yaxis
+        fig.update_xaxes(visible=True, showgrid=True, gridwidth=1, gridcolor='white',  tickformat="%b %d\n")
+        fig.update_yaxes(visible=True, showgrid=True, gridwidth=1, gridcolor='white' )        
+        # Let's show the legend in the top right corner
+        #fig.update_layout(legend=dict(
+        #yanchor="top",
+        #y=0.99,
+        #xanchor="left",
+        #x=0.01,
+        #font_size = 15
+      #))
+        fig.update_xaxes(title_font_size=30, tickfont_size=24)
+        fig.update_yaxes(title_font_size=30, tickfont_size=24)
+
+    # Don't show the legend
+        fig.update_layout(showlegend=False)
+    st.plotly_chart(figure_or_data=fig,use_container_width=True)
+    
+    
 except URLError as e:
     st.error(
         """
