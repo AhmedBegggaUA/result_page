@@ -93,6 +93,7 @@ try:
         h7_waning = pd.read_csv('Modelos/last_pred/h7_waning_pred.csv')
         h7_waning['fecha'] = pd.to_datetime(h7_waning['fecha'])
         h7_waning['month'] = h7_waning['fecha'].dt.strftime('%Y-%m')
+        st.write(" La selección es: ", months_list_short[month.index(month)])
         h7_waning = h7_waning[h7_waning['month'] == months_list_short[month.index(month)]]
         st.write(h7_waning)
         h7_waning = h7_waning[h7_waning['CountryName'] == country2]
