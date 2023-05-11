@@ -92,7 +92,7 @@ try:
         h7_waning = pd.read_csv('Modelos/last_pred/h7_waning_pred.csv')
         h7_waning['fecha'] = pd.to_datetime(h7_waning['fecha'], format = '%Y-%m-%d')
         h7_waning['month'] = h7_waning['fecha'].dt.month
-        h7_waning = h7_waning[h7_waning['month'] == months_list_short.index(month)+1]
+        h7_waning = h7_waning[h7_waning['month'] == months_list.index(month)+1]
         h7_waning = h7_waning[h7_waning['CountryName'] == country2]
         fig = go.Figure()
         fig.add_trace(go.Scatter(x = h7_waning['fecha'], y = h7_waning['Pred'], name = "Predicted Daily New Cases"))
