@@ -18,7 +18,7 @@ np.random.seed(1234)
 from urllib.error import URLError
 
 import sys
-sys.path.append('C:/Users/Sergio/Documents/valencia-ia4covid-xprize-master/valencia-ia4covid-xprize-master')
+#sys.path.append('C:/Users/Sergio/Documents/valencia-ia4covid-xprize-master/valencia-ia4covid-xprize-master')
 
 logo = 'https://ellisalicante.org/assets/xprize/images/logo_oscuro.png'
 carpeta = 'C:/Users/Sergio/Documents/valencia-ia4covid-xprize-master/valencia-ia4covid-xprize-master/'
