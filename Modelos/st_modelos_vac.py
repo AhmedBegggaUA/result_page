@@ -87,7 +87,8 @@ try:
         months_list = ["January","February","March","April","May"]
         months_dates = ["2020-12-31","2021-01-31","2021-01-31","2021-02-28","2021-02-28","2021-03-31","2021-03-31","2021-04-30",
                         "2021-04-30"]
-        months_list_short = ["jan","feb","mar","apr","may"]    
+        months_list_short = ["jan","feb","mar","apr","may"]
+        month = st.selectbox('Choose a month   ', months_list)
 except URLError as e:
     st.error(
         """
