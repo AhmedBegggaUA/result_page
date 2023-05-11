@@ -88,7 +88,7 @@ try:
         months_list_short = ['2021-01','2021-02','2021-03','2021-04','2021-05']
         months_dates = ["2020-12-31","2021-01-31","2021-01-31","2021-02-28","2021-02-28","2021-03-31","2021-03-31","2021-04-30",
                         "2021-04-30"]
-        months_list_short = ["jan","feb","mar","apr","may"]
+        #months_list_short = ["jan","feb","mar","apr","may"]
         month = st.selectbox('Choose a month   ', months_list)
         h7_waning = pd.read_csv('Modelos/last_pred/h7_waning_pred.csv')
         h7_waning['fecha'] = pd.to_datetime(h7_waning['fecha'])
