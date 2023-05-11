@@ -98,7 +98,8 @@ try:
         h7_waning = h7_waning[h7_waning['CountryName'] == country2]
         st.write(h7_waning)
         fig = go.Figure()
-        fig.add_trace(go.Scatter(x = h7_waning['fecha'], y = h7_waning['pred'], name = "Predicted Daily New Cases"))
+        fig.add_trace(go.Scatter(x = h7_waning['fecha'], y = h7_waning['pred'], name = "Predicted Daily New Cases SVIR"))
+        fig.add_trace(go.Scatter(x = h7_waning['fecha'], y = h7_waning['pred_sir'], name = "Predicted Daily New Cases SIR"))
         #new_data = new_data.set_index("Date")
         fig.update_layout(
       margin=dict(l=20, r=20, t=20, b=20))
