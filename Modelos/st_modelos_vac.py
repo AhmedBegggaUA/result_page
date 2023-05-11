@@ -95,7 +95,7 @@ try:
         h7_waning = h7_waning[h7_waning['month'] == months_list.index(month)+1]
         h7_waning = h7_waning[h7_waning['CountryName'] == country2]
         fig = go.Figure()
-        fig.add_trace(go.Scatter(x = h7_waning['fecha'], y = h7_waning['Pred'], name = "Predicted Daily New Cases"))
+        fig.add_trace(go.Scatter(x = h7_waning['fecha'], y = h7_waning['pred'], name = "Predicted Daily New Cases"))
         #new_data = new_data.set_index("Date")
         fig.update_layout(
       margin=dict(l=20, r=20, t=20, b=20))
