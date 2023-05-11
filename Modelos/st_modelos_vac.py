@@ -100,6 +100,7 @@ try:
         fig = go.Figure()
         fig.add_trace(go.Scatter(x = h7_waning['fecha'], y = h7_waning['pred'], name = "Predicted Daily New Cases SVIR"))
         fig.add_trace(go.Scatter(x = h7_waning['fecha'], y = h7_waning['pred_sir'], name = "Predicted Daily New Cases SIR"))
+        fig.add_trace(go.Scatter(x = h7_waning['fecha'], y = h7_waning['truth'], name = "Ground Truth Daily New Cases"))
         #new_data = new_data.set_index("Date")
         fig.update_layout(
       margin=dict(l=20, r=20, t=20, b=20))
