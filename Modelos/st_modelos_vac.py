@@ -96,6 +96,10 @@ try:
         st.write(" La selección es: ", months_list_short[month.index(month)])
         h7_waning = h7_waning[h7_waning['month'] == months_list_short[month.index(month)]]
         h7_waning = h7_waning[h7_waning['CountryName'] == country2]
+        # Let's get the smoothed data
+        h7_waning['pred'] = h7_waning['pred'].rolling(window=7).mean()
+        h7_waning['pred_sir'] = h7_waning['pred_sir'].rolling(window=7).mean()
+        h7_waning['truth'] = h7_waning['truth'].rolling(window=7).mean()
         st.write(h7_waning)
         fig = go.Figure()
         fig.add_trace(go.Scatter(x = h7_waning['fecha'], y = h7_waning['pred'], name = "Predicted Daily New Cases SVIR"))
