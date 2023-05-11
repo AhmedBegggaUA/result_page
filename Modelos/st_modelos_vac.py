@@ -94,6 +94,7 @@ try:
         h7_waning['fecha'] = pd.to_datetime(h7_waning['fecha'])
         h7_waning['month'] = h7_waning['fecha'].dt.strftime('%Y-%m')
         h7_waning = h7_waning[h7_waning['month'] == months_list_short[month.index(month)]]
+        st.write(h7_waning)
         h7_waning = h7_waning[h7_waning['CountryName'] == country2]
         fig = go.Figure()
         fig.add_trace(go.Scatter(x = h7_waning['fecha'], y = h7_waning['pred'], name = "Predicted Daily New Cases"))
