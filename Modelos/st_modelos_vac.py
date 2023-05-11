@@ -85,7 +85,7 @@ try:
         )
         
         months_list = ["January","February","March","April","May"]
-        months_list_short = ["2021-01","2021-02","2021-03","2021-04","2021-05"]
+        months_list_short = ['2021-01','2021-02','2021-03','2021-04','2021-05']
         months_dates = ["2020-12-31","2021-01-31","2021-01-31","2021-02-28","2021-02-28","2021-03-31","2021-03-31","2021-04-30",
                         "2021-04-30"]
         months_list_short = ["jan","feb","mar","apr","may"]
@@ -93,7 +93,7 @@ try:
         h7_waning = pd.read_csv('Modelos/last_pred/h7_waning_pred.csv')
         h7_waning['fecha'] = pd.to_datetime(h7_waning['fecha'])
         h7_waning['month'] = h7_waning['fecha'].dt.strftime('%Y-%m')
-        h7_waning = h7_waning[h7_waning['month'] == months_list_short[months_list.index(month)]]
+        h7_waning = h7_waning[h7_waning['month'] == months_list_short[month.index(month)]]
         h7_waning = h7_waning[h7_waning['CountryName'] == country2]
         fig = go.Figure()
         fig.add_trace(go.Scatter(x = h7_waning['fecha'], y = h7_waning['pred'], name = "Predicted Daily New Cases"))
