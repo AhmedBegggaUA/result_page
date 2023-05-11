@@ -16,7 +16,7 @@ import numpy as np
 # Fix the random seed
 np.random.seed(1234)
 from urllib.error import URLError
-
+import plotly.graph_objects as go
 import sys
 #sys.path.append('C:/Users/Sergio/Documents/valencia-ia4covid-xprize-master/valencia-ia4covid-xprize-master')
 
