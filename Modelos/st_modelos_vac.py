@@ -95,8 +95,8 @@ try:
         h7_waning['month'] = h7_waning['fecha'].dt.strftime('%Y-%m')
         st.write(" La selección es: ", months_list_short[month.index(month)])
         h7_waning = h7_waning[h7_waning['month'] == months_list_short[month.index(month)]]
-        st.write(h7_waning)
         h7_waning = h7_waning[h7_waning['CountryName'] == country2]
+        st.write(h7_waning)
         fig = go.Figure()
         fig.add_trace(go.Scatter(x = h7_waning['fecha'], y = h7_waning['pred'], name = "Predicted Daily New Cases"))
         #new_data = new_data.set_index("Date")
