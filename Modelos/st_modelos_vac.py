@@ -27,8 +27,13 @@ st.set_page_config(layout = 'wide')
 
 @st.cache
 def get_UN_data():
-    paises = pd.read_csv("countries_regions.csv")
-    return paises.set_index("CountryName")
+    paises = ['Argentina', 'Austria', 'Belgium', 'Bulgaria', 'Canada', 'Croatia',
+       'Cyprus', 'Czech Republic', 'Denmark', 'Ecuador', 'Estonia', 'Finland',
+       'France', 'Germany', 'Hungary', 'Ireland', 'Italy', 'Latvia',
+       'Lithuania', 'Luxembourg', 'Netherlands',
+       'Norway', 'Poland', 'Portugal', 'Slovak Republic', 'Slovenia', 'Spain',
+       'Sweden', 'Switzerland', 'United States']
+    return paises
 
 def get_data_rule(DATA):
     x1 = DATA[0]
@@ -74,17 +79,16 @@ try:
         
     cols = st.columns((1,5))
     with cols[0]:
-        paises_list = list(paises.index.unique())
+        paises_list = list(paises)
         paises_list.insert(0, "Europe")
-        paises_list.insert(0, "Overall")
         country2 = st.selectbox(
             "Choose countries ",paises_list
         )
         
-        months_list = ["January","February","March","April","May","June","July"]
+        months_list = ["January","February","March","April","May"]
         months_dates = ["2020-12-31","2021-01-31","2021-01-31","2021-02-28","2021-02-28","2021-03-31","2021-03-31","2021-04-30",
                         "2021-04-30","2021-05-31","2021-05-31","2021-06-30","2021-06-30","2021-07-31"]
-        months_list_short = ["jan","feb","mar","apr","may","jun","jul"]
+        months_list_short = ["jan","feb","mar","apr","may"]
 
         month = st.selectbox('Choose a month   ', months_list)
         
@@ -108,10 +112,12 @@ try:
     
     test = pd.read_csv("data/OxCGRT_latest.csv",parse_dates=["Date"])#parse
 
-    paises_utiles= test[test["CountryName"].isin(list(["Albania","Andorra","Austria","Azerbaijan","Belarus","Belgium","Bosnia and Herzegovina","Bulgaria","Croatia","Cyprus","Czech Republic",
-                   "Denmark","Estonia","Finland","France","Georgia","Germany","Greece","Hungary","Iceland","Ireland","Italy","Kazakhstan","Latvia","Liechtenstein",
-                   "Lithuania","Luxembourg","Malta","Moldova","Monaco","Netherlands","Norway","Poland","Portugal","Romania","San Marino","Serbia","Slovakia","Slovenia",
-                   "Spain","Sweden","Switzerland","Turkey","Ukraine","United Kingdom"]))]
+    paises_utiles= test[test["CountryName"].isin(list(['Argentina', 'Austria', 'Belgium', 'Bulgaria', 'Canada', 'Croatia',
+       'Cyprus', 'Czech Republic', 'Denmark', 'Ecuador', 'Estonia', 'Finland',
+       'France', 'Germany', 'Hungary', 'Ireland', 'Italy', 'Latvia',
+       'Lithuania', 'Luxembourg', 'Netherlands',
+       'Norway', 'Poland', 'Portugal', 'Slovak Republic', 'Slovenia', 'Spain',
+       'Sweden', 'Switzerland', 'United States']))]
     if smooth_bool:
         #[NEW]
         # Cogemos los datos de la semana anterior al mes que queremos
@@ -138,10 +144,12 @@ try:
             semana_anterior = semana_anterior[(semana_anterior.Date >= star_day) & (semana_anterior.Date <= end_day)]
                 
         # Lo mismo para los datos de la semana anterior[NEW]
-        paises_utiles_semana_anterior = semana_anterior[semana_anterior["CountryName"].isin(list(["Albania","Andorra","Austria","Azerbaijan","Belarus","Belgium","Bosnia and Herzegovina","Bulgaria","Croatia","Cyprus","Czech Republic",
-                     "Denmark","Estonia","Finland","France","Georgia","Germany","Greece","Hungary","Iceland","Ireland","Italy","Kazakhstan","Latvia","Liechtenstein",
-                     "Lithuania","Luxembourg","Malta","Moldova","Monaco","Netherlands","Norway","Poland","Portugal","Romania","San Marino","Serbia","Slovakia","Slovenia",
-                     "Spain","Sweden","Switzerland","Turkey","Ukraine","United Kingdom"]))]
+        paises_utiles_semana_anterior = semana_anterior[semana_anterior["CountryName"].isin(list(['Argentina', 'Austria', 'Belgium', 'Bulgaria', 'Canada', 'Croatia',
+       'Cyprus', 'Czech Republic', 'Denmark', 'Ecuador', 'Estonia', 'Finland',
+       'France', 'Germany', 'Hungary', 'Ireland', 'Italy', 'Latvia',
+       'Lithuania', 'Luxembourg', 'Netherlands',
+       'Norway', 'Poland', 'Portugal', 'Slovak Republic', 'Slovenia', 'Spain',
+       'Sweden', 'Switzerland', 'United States']))]
         paises_utiles = paises_utiles.append(paises_utiles_semana_anterior) #[NEW]
     
     
