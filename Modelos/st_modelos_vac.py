@@ -91,8 +91,8 @@ try:
         months_list_short = ["jan","feb","mar","apr","may"]
         month = st.selectbox('Choose a month   ', months_list)
         h7_waning = pd.read_csv('Modelos/last_pred/h7_waning_pred.csv')
-        h7_waning['fecha'] = pd.to_datetime(h7_waning['fecha'], format = '%Y-%m-%d')
-        h7_waning['month'] = h7_waning['fecha'].dt.month
+        h7_waning['fecha'] = pd.to_datetime(h7_waning['fecha'])
+        h7_waning['month'] = h7_waning['fecha'].dt.strftime('%Y-%m')
         h7_waning = h7_waning[h7_waning['month'] == months_list_short[months_list.index(month)]]
         h7_waning = h7_waning[h7_waning['CountryName'] == country2]
         fig = go.Figure()
