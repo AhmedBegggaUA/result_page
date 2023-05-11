@@ -76,7 +76,6 @@ try:
     paises = get_UN_data()
     data = pd.read_csv("data/OxCGRT_latest.csv")
     data['Date'] = pd.to_datetime(data['Date'], format = '%Y%m%d')
-        
     cols = st.columns((1,5))
     with cols[0]:
         paises_list = list(paises)
@@ -87,7 +86,19 @@ try:
         
         months_list = ["January","February","March","April","May"]
         months_dates = ["2020-12-31","2021-01-31","2021-01-31","2021-02-28","2021-02-28","2021-03-31","2021-03-31","2021-04-30",
-                        "2021-04-30","2021-05-31","2021-05-31","2021-06-30","2021-06-30","2021-07-31"]
+                        "2021-04-30"]
+        months_list_short = ["jan","feb","mar","apr","may"]
+    cols = st.columns((1,5))
+    with cols[0]:
+        paises_list = list(paises)
+        paises_list.insert(0, "Europe")
+        country2 = st.selectbox(
+            "Choose countries ",paises_list
+        )
+        
+        months_list = ["January","February","March","April","May"]
+        months_dates = ["2020-12-31","2021-01-31","2021-01-31","2021-02-28","2021-02-28","2021-03-31","2021-03-31","2021-04-30",
+                        "2021-04-30"]
         months_list_short = ["jan","feb","mar","apr","may"]
 
         month = st.selectbox('Choose a month   ', months_list)
@@ -103,11 +114,7 @@ try:
     overall_data2= {}
    
     start_date = pd.to_datetime(months_dates[months_list.index(month)*2],format = '%Y-%m-%d')
-    
-    if smooth_bool:
-        # Añadido el -7 para que empiece 7 dias antes [NEW]
-        start_date = start_date - np.timedelta64(7,'D')
-    end_date = pd.to_datetime(months_dates[months_list.index(month)*2+1],format = '%Y-%m-%d')
+
    
     
     test = pd.read_csv("data/OxCGRT_latest.csv",parse_dates=["Date"])#parse
