@@ -104,12 +104,10 @@ try:
         #h7_waning = h7_waning.drop_duplicates(subset=['CountryName','fecha'], keep='last')
         # Agrupamos por fecha y pais 
         h7_waning = h7_waning.groupby(['CountryName','fecha']).mean().reset_index()
-        st.write(h7_waning)
         # Let's get the smoothed data
         h7_waning['pred'] = h7_waning['pred'].rolling(window=7, min_periods=1).mean()
         h7_waning['pred_sir'] = h7_waning['pred_sir'].rolling(window=7, min_periods=1).mean()
         h7_waning['truth'] = h7_waning['truth'].rolling(window=7, min_periods=1).mean()
-        st.write(h7_waning)
         fig = go.Figure()
         fig.add_trace(go.Scatter(x = h7_waning['fecha'], y = h7_waning['pred'], name = "Predicted Daily New Cases SVIR"))
         fig.add_trace(go.Scatter(x = h7_waning['fecha'], y = h7_waning['pred_sir'], name = "Predicted Daily New Cases SIR"))
@@ -141,13 +139,13 @@ try:
         fig.update_xaxes(visible=True, showgrid=True, gridwidth=1, gridcolor='white',  tickformat="%b %d\n")
         fig.update_yaxes(visible=True, showgrid=True, gridwidth=1, gridcolor='white' )        
         # Let's show the legend in the top right corner
-        #fig.update_layout(legend=dict(
-        #yanchor="top",
-        #y=0.99,
-        #xanchor="left",
-        #x=0.01,
-        #font_size = 15
-      #))
+        fig.update_layout(legend=dict(
+        yanchor="top",
+        y=0.99,
+        xanchor="left",
+        x=0.01,
+        font_size = 15
+      ))
         fig.update_xaxes(title_font_size=30, tickfont_size=24)
         fig.update_yaxes(title_font_size=30, tickfont_size=24)
 
