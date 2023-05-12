@@ -9,7 +9,8 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 from PIL import Image
-
+from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_absolute_error
 import json
 import logging
 import numpy as np
@@ -98,59 +99,87 @@ try:
         none_waning = pd.read_csv('Modelos/last_pred/none_waning_pred.csv')
         none_casos = pd.read_csv('Modelos/last_pred/none_casos_pred.csv')
         xprize = pd.read_csv('Modelos/last_pred/xprizes_pred.csv')
+        
+        h7_waning_europe = pd.read_csv('Modelos/last_pred/h7_waning_europe.csv')
+        h7_waning_none_europe = pd.read_csv('Modelos/last_pred/h7_waning_none_europe.csv')
+        h7_waning_xprize_europe = pd.read_csv('Modelos/last_pred/h7_waning_xprize_europe.csv')
         # Drop duplicated rows
-        
-        h7_waning = h7_waning[h7_waning['CountryName'] == country2]
-        h7_waning['fecha'] = pd.to_datetime(h7_waning['fecha'])
-        h7_waning['month'] = h7_waning['fecha'].dt.strftime('%Y-%m')
-        st.write(" La selección es: ", months_list_short[idx])
-        h7_waning = h7_waning[h7_waning['month'] == months_list_short[idx]]
-        h7_waning = h7_waning.groupby(['CountryName','fecha']).mean().reset_index()
-        h7_waning['pred'] = h7_waning['pred'].rolling(window=7, min_periods=1).mean()
-        h7_waning['pred_sir'] = h7_waning['pred_sir'].rolling(window=7, min_periods=1).mean()
-        h7_waning['truth'] = h7_waning['truth'].rolling(window=7, min_periods=1).mean()
-        
-        h7_casos = h7_casos[h7_casos['CountryName'] == country2]
-        h7_casos['fecha'] = pd.to_datetime(h7_casos['fecha'])
-        h7_casos['month'] = h7_casos['fecha'].dt.strftime('%Y-%m')
-        h7_casos = h7_casos[h7_casos['month'] == months_list_short[idx]]
-        h7_casos = h7_casos.groupby(['CountryName','fecha']).mean().reset_index()
-        h7_casos['pred'] = h7_casos['pred'].rolling(window=7, min_periods=1).mean()
-        h7_casos['pred_sir'] = h7_casos['pred_sir'].rolling(window=7, min_periods=1).mean()
-        
-        none_waning = none_waning[none_waning['CountryName'] == country2]
-        none_waning['fecha'] = pd.to_datetime(none_waning['fecha'])
-        none_waning['month'] = none_waning['fecha'].dt.strftime('%Y-%m')
-        none_waning = none_waning[none_waning['month'] == months_list_short[idx]]
-        none_waning = none_waning.groupby(['CountryName','fecha']).mean().reset_index()
-        none_waning['pred'] = none_waning['pred'].rolling(window=7, min_periods=1).mean()
-        none_waning['pred_sir'] = none_waning['pred_sir'].rolling(window=7, min_periods=1).mean()
-        
-        none_casos = none_casos[none_casos['CountryName'] == country2]
-        none_casos['fecha'] = pd.to_datetime(none_casos['fecha'])
-        none_casos['month'] = none_casos['fecha'].dt.strftime('%Y-%m')
-        none_casos = none_casos[none_casos['month'] == months_list_short[idx]]
-        none_casos = none_casos.groupby(['CountryName','fecha']).mean().reset_index()
-        none_casos['pred'] = none_casos['pred'].rolling(window=7, min_periods=1).mean()
-        none_casos['pred_sir'] = none_casos['pred_sir'].rolling(window=7, min_periods=1).mean()
-        
-        xprize = xprize[xprize['CountryName'] == country2]
-        xprize['fecha'] = pd.to_datetime(xprize['fecha'])
-        xprize['month'] = xprize['fecha'].dt.strftime('%Y-%m')
-        xprize = xprize[xprize['month'] == months_list_short[idx]]
-        xprize = xprize.groupby(['CountryName','fecha']).mean().reset_index()
-        xprize['pred'] = xprize['pred'].rolling(window=7, min_periods=1).mean()
-        xprize['pred_sir'] = xprize['pred_sir'].rolling(window=7, min_periods=1).mean()
-        
-        fig = go.Figure()
-        fig.add_trace(go.Scatter(x = h7_waning['fecha'], y = h7_waning['pred'], name = "H7 & VacW SVIR", line = dict(color = 'red', width = 2)))
-        fig.add_trace(go.Scatter(x = h7_waning['fecha'], y = h7_waning['pred_sir'], name = "H7 & VacW SIR", line = dict(color = 'green', width = 2)))
-        fig.add_trace(go.Scatter(x = none_waning['fecha'], y = none_waning['pred'], name = "No H7 & VacW SVIR", line = dict(color = 'blue', width = 2)))
-        fig.add_trace(go.Scatter(x = none_waning['fecha'], y = none_waning['pred_sir'], name = "No H7 & VacW SIR", line = dict(color = 'purple', width = 2)))
-        fig.add_trace(go.Scatter(x = none_casos['fecha'], y = none_casos['pred'], name = "No H7 & No VacW SVIR", line = dict(color = 'cyan', width = 2)))
-        fig.add_trace(go.Scatter(x = none_casos['fecha'], y = none_casos['pred_sir'], name = "No H7 & No VacW SIR", line = dict(color = 'magenta', width = 2)))
-        fig.add_trace(go.Scatter(x = xprize['fecha'], y = xprize['pred'], name = "XPrize", line = dict(color = 'black', width = 2)))
-        fig.add_trace(go.Scatter(x = h7_waning['fecha'], y = h7_waning['truth'], name = "Ground Truth Daily New Cases", line = dict(color = 'orange', width = 4, dash = 'dash')))
+        if country2 != 'Europe':
+            h7_waning = h7_waning[h7_waning['CountryName'] == country2]
+            h7_waning['fecha'] = pd.to_datetime(h7_waning['fecha'])
+            h7_waning['month'] = h7_waning['fecha'].dt.strftime('%Y-%m')
+            st.write(" La selección es: ", months_list_short[idx])
+            h7_waning = h7_waning[h7_waning['month'] == months_list_short[idx]]
+            h7_waning = h7_waning.groupby(['CountryName','fecha']).mean().reset_index()
+            h7_waning['pred'] = h7_waning['pred'].rolling(window=7, min_periods=1).mean()
+            h7_waning['pred_sir'] = h7_waning['pred_sir'].rolling(window=7, min_periods=1).mean()
+            h7_waning['truth'] = h7_waning['truth'].rolling(window=7, min_periods=1).mean()
+            
+            h7_casos = h7_casos[h7_casos['CountryName'] == country2]
+            h7_casos['fecha'] = pd.to_datetime(h7_casos['fecha'])
+            h7_casos['month'] = h7_casos['fecha'].dt.strftime('%Y-%m')
+            h7_casos = h7_casos[h7_casos['month'] == months_list_short[idx]]
+            h7_casos = h7_casos.groupby(['CountryName','fecha']).mean().reset_index()
+            h7_casos['pred'] = h7_casos['pred'].rolling(window=7, min_periods=1).mean()
+            h7_casos['pred_sir'] = h7_casos['pred_sir'].rolling(window=7, min_periods=1).mean()
+            
+            none_waning = none_waning[none_waning['CountryName'] == country2]
+            none_waning['fecha'] = pd.to_datetime(none_waning['fecha'])
+            none_waning['month'] = none_waning['fecha'].dt.strftime('%Y-%m')
+            none_waning = none_waning[none_waning['month'] == months_list_short[idx]]
+            none_waning = none_waning.groupby(['CountryName','fecha']).mean().reset_index()
+            none_waning['pred'] = none_waning['pred'].rolling(window=7, min_periods=1).mean()
+            none_waning['pred_sir'] = none_waning['pred_sir'].rolling(window=7, min_periods=1).mean()
+            
+            none_casos = none_casos[none_casos['CountryName'] == country2]
+            none_casos['fecha'] = pd.to_datetime(none_casos['fecha'])
+            none_casos['month'] = none_casos['fecha'].dt.strftime('%Y-%m')
+            none_casos = none_casos[none_casos['month'] == months_list_short[idx]]
+            none_casos = none_casos.groupby(['CountryName','fecha']).mean().reset_index()
+            none_casos['pred'] = none_casos['pred'].rolling(window=7, min_periods=1).mean()
+            none_casos['pred_sir'] = none_casos['pred_sir'].rolling(window=7, min_periods=1).mean()
+            
+            xprize = xprize[xprize['CountryName'] == country2]
+            xprize['fecha'] = pd.to_datetime(xprize['fecha'])
+            xprize['month'] = xprize['fecha'].dt.strftime('%Y-%m')
+            xprize = xprize[xprize['month'] == months_list_short[idx]]
+            xprize = xprize.groupby(['CountryName','fecha']).mean().reset_index()
+            xprize['pred'] = xprize['pred'].rolling(window=7, min_periods=1).mean()
+            xprize['pred_sir'] = xprize['pred_sir'].rolling(window=7, min_periods=1).mean()
+            
+            fig = go.Figure()
+            fig.add_trace(go.Scatter(x = h7_waning['fecha'], y = h7_waning['pred'], name = "H7 & VacW SVIR", line = dict(color = 'red', width = 2)))
+            fig.add_trace(go.Scatter(x = h7_waning['fecha'], y = h7_waning['pred_sir'], name = "H7 & VacW SIR", line = dict(color = 'green', width = 2)))
+            fig.add_trace(go.Scatter(x = none_waning['fecha'], y = none_waning['pred'], name = "No H7 & VacW SVIR", line = dict(color = 'blue', width = 2)))
+            fig.add_trace(go.Scatter(x = none_waning['fecha'], y = none_waning['pred_sir'], name = "No H7 & VacW SIR", line = dict(color = 'purple', width = 2)))
+            fig.add_trace(go.Scatter(x = xprize['fecha'], y = xprize['pred'], name = "XPrize", line = dict(color = 'black', width = 2)))
+            fig.add_trace(go.Scatter(x = h7_waning['fecha'], y = h7_waning['truth'], name = "Ground Truth Daily New Cases", line = dict(color = 'orange', width = 4, dash = 'dash')))
+        else: 
+            h7_waning_europe['fecha'] = pd.to_datetime(h7_waning_europe['fecha'])
+            h7_waning_europe['month'] = h7_waning_europe['fecha'].dt.strftime('%Y-%m')
+            h7_waning_europe = h7_waning_europe[h7_waning_europe['month'] == months_list_short[idx]]
+            h7_waning_europe = h7_waning_europe.groupby(['fecha']).mean().reset_index()
+            h7_waning_europe['pred_h7_waning'] = h7_waning_europe['pred_h7_waning'].rolling(window=7, min_periods=1).mean()
+            h7_waning_europe['truth'] = h7_waning_europe['truth'].rolling(window=7, min_periods=1).mean()
+            
+            h7_waning_none_europe['fecha'] = pd.to_datetime(h7_waning_none_europe['fecha'])
+            h7_waning_none_europe['month'] = h7_waning_none_europe['fecha'].dt.strftime('%Y-%m')
+            h7_waning_none_europe = h7_waning_none_europe[h7_waning_none_europe['month'] == months_list_short[idx]]
+            h7_waning_none_europe = h7_waning_none_europe.groupby(['fecha']).mean().reset_index()
+            h7_waning_none_europe['pred_h7_waning'] = h7_waning_none_europe['pred_h7_waning'].rolling(window=7, min_periods=1).mean()
+
+            h7_waning_xprize_europe['fecha'] = pd.to_datetime(h7_waning_xprize_europe['fecha'])
+            h7_waning_xprize_europe['month'] = h7_waning_xprize_europe['fecha'].dt.strftime('%Y-%m')
+            h7_waning_xprize_europe = h7_waning_xprize_europe[h7_waning_xprize_europe['month'] == months_list_short[idx]]
+            h7_waning_xprize_europe = h7_waning_xprize_europe.groupby(['fecha']).mean().reset_index()
+            h7_waning_xprize_europe['pred_h7_waning'] = h7_waning_xprize_europe['pred_h7_waning'].rolling(window=7, min_periods=1).mean()
+            
+            fig = go.Figure()
+            fig.add_trace(go.Scatter(x = h7_waning_europe['fecha'], y = h7_waning_europe['pred_h7_waning'], name = "H7 & VacW SVIR", line = dict(color = 'red', width = 2)))
+            fig.add_trace(go.Scatter(x = h7_waning_europe['fecha'], y = h7_waning_none_europe['pred_h7_waning'], name = "No H7 & VacW SVIR", line = dict(color = 'blue', width = 2)))
+            fig.add_trace(go.Scatter(x = h7_waning_xprize_europe['fecha'], y = h7_waning_xprize_europe['pred_h7_waning'], name = "XPrize", line = dict(color = 'black', width = 2)))
+            fig.add_trace(go.Scatter(x = h7_waning_europe['fecha'], y = h7_waning_europe['truth'], name = "Ground Truth Daily New Cases", line = dict(color = 'orange', width = 4, dash = 'dash')))
+            
         #new_data = new_data.set_index("Date")
         fig.update_layout(
       margin=dict(l=20, r=20, t=20, b=20))
