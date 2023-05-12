@@ -8,10 +8,10 @@ Created on Sun Jan 29 11:11:21 2023
 import streamlit as st
 import pandas as pd
 #import altair as alt
-from PIL import Image
+#from PIL import Image
 
-import json
-import logging
+#import json
+#import logging
 import numpy as np
 # Fix the random seed
 np.random.seed(1234)
