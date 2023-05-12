@@ -171,7 +171,16 @@ try:
                     linecolor='grey',
                     gridcolor='grey')
         fig.update_layout(template = "ggplot2")
-        fig.update_layout(font_size = 15, legend_title = "Models", legend_title_font_size = 20, legend_font_color = "black")
+        #fig.update_layout(font_size = 15, legend_title = "Models", legend_title_font_size = 20, legend_font_color = "black")
+        # Place the legend outside the plot on the right side
+        fig.update_layout(legend=dict(
+        yanchor="top",
+        y=0.99,
+        xanchor="left",
+        x=0.01,
+        font_size = 15
+        ))
+        
         # Make visible the xaxis and yaxis
         fig.update_xaxes(visible=True, showgrid=True, gridwidth=1, gridcolor='white',  tickformat="%b %d\n")
         fig.update_yaxes(visible=True, showgrid=True, gridwidth=1, gridcolor='white' )        
