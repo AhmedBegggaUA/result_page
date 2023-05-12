@@ -7,4 +7,3 @@ flair
 click<8
 plotly
 altair==5.0
-altair.vegalite.v4
