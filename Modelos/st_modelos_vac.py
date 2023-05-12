@@ -97,7 +97,7 @@ try:
         h7_casos = pd.read_csv('Modelos/last_pred/h7_casos_pred.csv')
         none_waning = pd.read_csv('Modelos/last_pred/none_waning_pred.csv')
         none_casos = pd.read_csv('Modelos/last_pred/none_casos_pred.csv')
-        xprize = pd.read_csv('Modelos/last_pred/xprize_pred.csv')
+        xprize = pd.read_csv('Modelos/last_pred/xprizes_pred.csv')
         # Drop duplicated rows
         
         h7_waning = h7_waning[h7_waning['CountryName'] == country2]
