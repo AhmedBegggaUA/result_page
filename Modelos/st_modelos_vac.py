@@ -92,7 +92,7 @@ try:
         month = st.selectbox('Choose a month   ', months_list)
         h7_waning = pd.read_csv('Modelos/last_pred/h7_waning_pred.csv')
         # Drop duplicated rows
-        h7_waning = h7_waning.drop_duplicates()
+        h7_waning = h7_waning.drop_duplicates(subset=['CountryName','fecha'], keep='first')
         h7_waning = h7_waning[h7_waning['CountryName'] == country2]
         h7_waning['fecha'] = pd.to_datetime(h7_waning['fecha'])
         h7_waning['month'] = h7_waning['fecha'].dt.strftime('%Y-%m')
