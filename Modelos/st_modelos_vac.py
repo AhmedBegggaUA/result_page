@@ -176,7 +176,7 @@ try:
         fig.update_layout(legend=dict(
         yanchor="top",
         y=0.99,
-        xanchor="right",
+        xanchor="left",
         x=0.01,
         font_size = 15
         ))
@@ -184,6 +184,14 @@ try:
         # Make visible the xaxis and yaxis
         fig.update_xaxes(visible=True, showgrid=True, gridwidth=1, gridcolor='white',  tickformat="%b %d\n")
         fig.update_yaxes(visible=True, showgrid=True, gridwidth=1, gridcolor='white' )        
+        # Let's show the legend in the top right corner
+        fig.update_layout(legend=dict(
+        yanchor="top",
+        y=0.99,
+        xanchor="right",
+        x=0.01,
+        font_size = 15
+      ))
         fig.update_xaxes(title_font_size=30, tickfont_size=24)
         fig.update_yaxes(title_font_size=30, tickfont_size=24)
 
