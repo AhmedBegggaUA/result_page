@@ -101,7 +101,10 @@ try:
         h7_waning['month'] = h7_waning['fecha'].dt.strftime('%Y-%m')
         st.write(" La selección es: ", months_list_short[idx])
         h7_waning = h7_waning[h7_waning['month'] == months_list_short[idx]]
-        h7_waning = h7_waning.drop_duplicates(subset=['CountryName','fecha'], keep='last')
+        #h7_waning = h7_waning.drop_duplicates(subset=['CountryName','fecha'], keep='last')
+        # Agrupamos por fecha y pais 
+        h7_waning = h7_waning.groupby(['CountryName','fecha']).mean().reset_index()
+
         # Let's get the smoothed data
         h7_waning['pred'] = h7_waning['pred'].rolling(window=7).mean()
         h7_waning['pred_sir'] = h7_waning['pred_sir'].rolling(window=7).mean()
