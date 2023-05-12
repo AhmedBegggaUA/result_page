@@ -108,7 +108,6 @@ try:
             h7_waning = h7_waning[h7_waning['CountryName'] == country2]
             h7_waning['fecha'] = pd.to_datetime(h7_waning['fecha'])
             h7_waning['month'] = h7_waning['fecha'].dt.strftime('%Y-%m')
-            st.write(" La selección es: ", months_list_short[idx])
             h7_waning = h7_waning[h7_waning['month'] == months_list_short[idx]]
             h7_waning = h7_waning.groupby(['CountryName','fecha']).mean().reset_index()
             h7_waning['pred'] = h7_waning['pred'].rolling(window=7, min_periods=1).mean()
