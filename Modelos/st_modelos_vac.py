@@ -176,7 +176,7 @@ try:
         fig.update_layout(legend=dict(
         yanchor="top",
         y=0.99,
-        xanchor="left",
+        xanchor="right",
         x=0.01,
         font_size = 15
         ))
