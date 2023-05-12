@@ -28,12 +28,11 @@ st.set_page_config(layout = 'wide')
 
 @st.cache
 def get_UN_data():
-    paises = ['Argentina', 'Austria', 'Belgium', 'Bulgaria', 'Canada', 'Croatia',
-       'Cyprus', 'Czech Republic', 'Denmark', 'Ecuador', 'Estonia', 'Finland',
-       'France', 'Germany', 'Hungary', 'Ireland', 'Italy', 'Latvia',
-       'Lithuania', 'Luxembourg', 'Netherlands',
-       'Norway', 'Poland', 'Portugal', 'Slovak Republic', 'Slovenia', 'Spain',
-       'Sweden', 'Switzerland', 'United States']
+    paises = [ 'Austria', 'Belgium', 'Bulgaria',  'Croatia',
+       'Cyprus', 'Czech Republic', 'Denmark', 'Estonia', 'Finland',
+       'France', 'Germany', 'Hungary', 'Ireland', 'Italy', 'Luxembourg', 'Netherlands',
+       'Norway', 'Poland', 'Portugal', 'Slovenia', 'Spain',
+       'Sweden', 'Switzerland']
     return paises
 
 def get_data_rule(DATA):
