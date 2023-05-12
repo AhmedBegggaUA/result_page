@@ -92,13 +92,14 @@ try:
         month = st.selectbox('Choose a month   ', months_list)
         h7_waning = pd.read_csv('Modelos/last_pred/h7_waning_pred.csv')
         # Drop duplicated rows
-        h7_waning = h7_waning.drop_duplicates(subset=['CountryName','fecha'], keep='last')
+        h7_waning = h7_waning.drop_duplicates()
+        h7_waning = h7_waning[h7_waning['CountryName'] == country2]
         h7_waning['fecha'] = pd.to_datetime(h7_waning['fecha'])
         h7_waning['month'] = h7_waning['fecha'].dt.strftime('%Y-%m')
         st.write(" La selección es: ", months_list_short[month.index(month)])
         if(months_list_short[month.index(month)] == '2021-01'):
             h7_waning = h7_waning[(h7_waning['month'] == months_list_short[month.index(month)]) | (h7_waning['month'] <= months_dates[month.index(month)])]
-        h7_waning = h7_waning[h7_waning['CountryName'] == country2]
+        
         # Let's get the smoothed data
         h7_waning['pred'] = h7_waning['pred'].rolling(window=7).mean()
         h7_waning['pred_sir'] = h7_waning['pred_sir'].rolling(window=7).mean()
