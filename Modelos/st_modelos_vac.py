@@ -97,8 +97,7 @@ try:
         h7_waning['fecha'] = pd.to_datetime(h7_waning['fecha'])
         h7_waning['month'] = h7_waning['fecha'].dt.strftime('%Y-%m')
         st.write(" La selección es: ", months_list_short[month.index(month)])
-        if(months_list_short[month.index(month)] == '2021-01'):
-            h7_waning = h7_waning[(h7_waning['month'] == months_list_short[month.index(month)]) | (h7_waning['month'] <= months_dates[month.index(month)])]
+        h7_waning = h7_waning[h7_waning['month'] == months_list_short[month.index(month)]]
         
         # Let's get the smoothed data
         h7_waning['pred'] = h7_waning['pred'].rolling(window=7).mean()
