@@ -7,7 +7,7 @@ Created on Sun Jan 29 11:11:21 2023
 
 import streamlit as st
 import pandas as pd
-#import altair as alt
+import altair as alt
 from PIL import Image
 
 import json
