@@ -147,6 +147,8 @@ try:
         fig.add_trace(go.Scatter(x = h7_waning['fecha'], y = h7_waning['pred_sir'], name = "H7 & VacW SIR", line = dict(color = 'green', width = 2)))
         fig.add_trace(go.Scatter(x = none_waning['fecha'], y = none_waning['pred'], name = "No H7 & VacW SVIR", line = dict(color = 'blue', width = 2)))
         fig.add_trace(go.Scatter(x = none_waning['fecha'], y = none_waning['pred_sir'], name = "No H7 & VacW SIR", line = dict(color = 'purple', width = 2)))
+        fig.add_trace(go.Scatter(x = none_casos['fecha'], y = none_casos['pred'], name = "No H7 & No VacW SVIR", line = dict(color = 'cyan', width = 2)))
+        fig.add_trace(go.Scatter(x = none_casos['fecha'], y = none_casos['pred_sir'], name = "No H7 & No VacW SIR", line = dict(color = 'magenta', width = 2)))
         fig.add_trace(go.Scatter(x = xprize['fecha'], y = xprize['pred'], name = "XPrize", line = dict(color = 'black', width = 2)))
         fig.add_trace(go.Scatter(x = h7_waning['fecha'], y = h7_waning['truth'], name = "Ground Truth Daily New Cases", line = dict(color = 'orange', width = 4, dash = 'dash')))
         #new_data = new_data.set_index("Date")
