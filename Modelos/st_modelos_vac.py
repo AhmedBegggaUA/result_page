@@ -187,7 +187,7 @@ try:
         fig.update_yaxes(title_font_size=30, tickfont_size=24)
 
     # Don't show the legend
-        fig.update_layout(showlegend=False)
+        fig.update_layout(showlegend=True)
     st.plotly_chart(figure_or_data=fig,use_container_width=True)
     
     
