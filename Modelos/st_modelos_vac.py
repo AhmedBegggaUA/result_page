@@ -176,14 +176,14 @@ try:
         # Make visible the xaxis and yaxis
         fig.update_xaxes(visible=True, showgrid=True, gridwidth=1, gridcolor='white',  tickformat="%b %d\n")
         fig.update_yaxes(visible=True, showgrid=True, gridwidth=1, gridcolor='white' )        
-        # Let's show the legend in the top right corner
+        # Let's show the legend in the top right corner of the plot
         fig.update_layout(legend=dict(
-        yanchor="top",
-        y=0.99,
-        xanchor="right",
-        x=0.01,
-        font_size = 15
-      ))
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="right",
+            x=1
+        ))
         fig.update_xaxes(title_font_size=30, tickfont_size=24)
         fig.update_yaxes(title_font_size=30, tickfont_size=24)
 
