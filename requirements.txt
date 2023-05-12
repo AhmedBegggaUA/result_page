@@ -6,4 +6,4 @@ keybert
 flair
 click<8
 plotly
-altair
+altair==5.0.0rc1
