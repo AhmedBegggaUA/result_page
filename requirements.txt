@@ -7,3 +7,4 @@ flair
 click<8
 plotly
 altair==5.0
+vega
