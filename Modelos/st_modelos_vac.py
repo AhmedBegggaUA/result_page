@@ -84,14 +84,14 @@ try:
             "Choose countries ",paises_list
         )
         
-        months_list = ["January","February","March","April","May"]
+        months_list = ["January","February","March","April"]
         months_list_short = ['2021-01','2021-02','2021-03','2021-04','2021-05']
         months_dates = ["2020-12-31","2021-01-31","2021-01-31","2021-02-28","2021-02-28","2021-03-31","2021-03-31","2021-04-30",
                         "2021-04-30"]
         #months_list_short = ["jan","feb","mar","apr","may"]
         month = st.selectbox('Choose a month   ', months_list)
         # Nos quedamos con el indice del mes seleccionado
-        lista_idx = [0,1,2,3,4]
+        lista_idx = [0,1,2,3]
         idx = months_list.index(month)
         h7_waning = pd.read_csv('Modelos/last_pred/h7_waning_pred.csv')
         # Drop duplicated rows
@@ -104,12 +104,12 @@ try:
         #h7_waning = h7_waning.drop_duplicates(subset=['CountryName','fecha'], keep='last')
         # Agrupamos por fecha y pais 
         h7_waning = h7_waning.groupby(['CountryName','fecha']).mean().reset_index()
-
+        st.write(h7_waning)
         # Let's get the smoothed data
         h7_waning['pred'] = h7_waning['pred'].rolling(window=7).mean()
         h7_waning['pred_sir'] = h7_waning['pred_sir'].rolling(window=7).mean()
         h7_waning['truth'] = h7_waning['truth'].rolling(window=7).mean()
-        st.write(h7_waning)
+        
         fig = go.Figure()
         fig.add_trace(go.Scatter(x = h7_waning['fecha'], y = h7_waning['pred'], name = "Predicted Daily New Cases SVIR"))
         fig.add_trace(go.Scatter(x = h7_waning['fecha'], y = h7_waning['pred_sir'], name = "Predicted Daily New Cases SIR"))
