@@ -174,7 +174,7 @@ try:
             h7_waning_none_europe['fecha'] = pd.to_datetime(h7_waning_none_europe['fecha'])
             h7_waning_none_europe['month'] = h7_waning_none_europe['fecha'].dt.strftime('%Y-%m')
             h7_waning_none_europe = h7_waning_none_europe[h7_waning_none_europe['month'] ==fecha_elegida]
-            h7_waning_none_europe = h7_waning_none_europe.groupby(['fecha']).mean().reset_index()
+            #h7_waning_none_europe = h7_waning_none_europe.groupby(['fecha']).mean().reset_index()
             h7_waning_none_europe['pred_h7_waning'] = h7_waning_none_europe['pred_h7_waning'].rolling(window=7, min_periods=1).mean()
 
             h7_waning_xprize_europe['fecha'] = pd.to_datetime(h7_waning_xprize_europe['fecha'])
