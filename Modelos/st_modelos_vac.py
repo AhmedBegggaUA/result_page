@@ -162,6 +162,8 @@ try:
             h7_waning_europe['mes_pertenencia'] = h7_waning_europe['fecha'].dt.strftime('%m')
             # Lo pasamos a entero
             h7_waning_europe['mes_pertenencia'] = h7_waning_europe['mes_pertenencia'].astype(int)
+            # Ahora usamos el to_numeric para ordenar los meses
+            h7_waning_europe['mes_pertenencia'] = pd.to_numeric(h7_waning_europe['mes_pertenencia'])
             # Nos quedamos con las filas del mes elegido
             h7_waning_europe = h7_waning_europe[h7_waning_europe['month'] == fecha_elegida]
             h7_waning_europe = h7_waning_europe.groupby(['mes_pertenencia']).mean().reset_index()
@@ -173,6 +175,8 @@ try:
             h7_waning_none_europe['mes_pertenencia'] = h7_waning_none_europe['fecha'].dt.strftime('%m')
             # Lo pasamos a entero
             h7_waning_none_europe['mes_pertenencia'] = h7_waning_none_europe['mes_pertenencia'].astype(int)
+            # Ahora usamos el to_numeric para ordenar los meses
+            h7_waning_none_europe['mes_pertenencia'] = pd.to_numeric(h7_waning_none_europe['mes_pertenencia'])
             h7_waning_none_europe = h7_waning_none_europe[h7_waning_none_europe['month'] ==fecha_elegida]
             h7_waning_none_europe = h7_waning_none_europe.groupby(['mes_pertenencia']).mean().reset_index()
             h7_waning_none_europe['pred_h7_waning'] = h7_waning_none_europe['pred_h7_waning'].rolling(window=7, min_periods=1).mean()
@@ -182,6 +186,8 @@ try:
             h7_waning_xprize_europe['mes_pertenencia'] = h7_waning_xprize_europe['fecha'].dt.strftime('%m')
             # Lo pasamos a entero
             h7_waning_xprize_europe['mes_pertenencia'] = h7_waning_xprize_europe['mes_pertenencia'].astype(int)
+            # Ahora usamos el to_numeric para ordenar los meses
+            h7_waning_xprize_europe['mes_pertenencia'] = pd.to_numeric(h7_waning_xprize_europe['mes_pertenencia'])
             h7_waning_xprize_europe = h7_waning_xprize_europe[h7_waning_xprize_europe['month'] == fecha_elegida]
             h7_waning_xprize_europe = h7_waning_xprize_europe.groupby(['mes_pertenencia']).mean().reset_index()
             h7_waning_xprize_europe['pred_h7_waning'] = h7_waning_xprize_europe['pred_h7_waning'].rolling(window=7, min_periods=1).mean()
