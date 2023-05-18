@@ -108,7 +108,7 @@ try:
             h7_waning = h7_waning[h7_waning['CountryName'] == country2]
             h7_waning['fecha'] = pd.to_datetime(h7_waning['fecha'])
             h7_waning['month'] = h7_waning['fecha'].dt.strftime('%Y-%m')
-            fecha_elegida = pd.to_datetime(months_list_short[idx])
+            fecha_elegida = pd.to_datetime(months_list_short[idx]).strftime('%Y-%m')
             st.write(fecha_elegida)
             h7_waning = h7_waning[h7_waning['month'] == fecha_elegida]
             h7_waning = h7_waning.groupby(['CountryName','fecha']).mean().reset_index()
@@ -158,7 +158,7 @@ try:
         else: 
             h7_waning_europe['fecha'] = pd.to_datetime(h7_waning_europe['fecha'])
             h7_waning_europe['month'] = h7_waning_europe['fecha'].dt.strftime('%Y-%m')
-            fecha_elegida = pd.to_datetime(months_list_short[idx])
+            fecha_elegida = pd.to_datetime(months_list_short[idx]).strftime('%Y-%m')
             h7_waning_europe = h7_waning_europe[h7_waning_europe['month'] == fecha_elegida]
             h7_waning_europe = h7_waning_europe.groupby(['fecha']).mean().reset_index()
             h7_waning_europe['pred_h7_waning'] = h7_waning_europe['pred_h7_waning'].rolling(window=7, min_periods=1).mean()
