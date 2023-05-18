@@ -161,7 +161,7 @@ try:
             fecha_elegida = pd.to_datetime(months_list_short[idx]).strftime('%Y-%m')
             # Nos quedamos con las filas del mes elegido
             st.write(fecha_elegida)
-            st.write(h7_waning_europe.month)
+            st.write(months_list_short[idx])
             h7_waning_europe = h7_waning_europe[h7_waning_europe['month'] == fecha_elegida]
             h7_waning_europe = h7_waning_europe.groupby(['fecha']).mean().reset_index()
             h7_waning_europe['pred_h7_waning'] = h7_waning_europe['pred_h7_waning'].rolling(window=7, min_periods=1).mean()
