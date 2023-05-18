@@ -94,6 +94,7 @@ try:
         lista_idx = [0,1,2,3]
         idx = months_list.index(month)
         h7_waning = pd.read_csv('Modelos/last_pred/h7_waning_pred.csv')
+        st.write(h7_waning)
         h7_casos = pd.read_csv('Modelos/last_pred/h7_casos_pred.csv')
         none_waning = pd.read_csv('Modelos/last_pred/none_waning_pred.csv')
         none_casos = pd.read_csv('Modelos/last_pred/none_casos_pred.csv')
