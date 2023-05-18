@@ -113,7 +113,7 @@ try:
             h7_waning['pred'] = h7_waning['pred'].rolling(window=7, min_periods=1).mean()
             h7_waning['pred_sir'] = h7_waning['pred_sir'].rolling(window=7, min_periods=1).mean()
             h7_waning['truth'] = h7_waning['truth'].rolling(window=7, min_periods=1).mean()
-            
+            st.write(h7_waning)
             h7_casos = h7_casos[h7_casos['CountryName'] == country2]
             h7_casos['fecha'] = pd.to_datetime(h7_casos['fecha'])
             h7_casos['month'] = h7_casos['fecha'].dt.strftime('%Y-%m')
