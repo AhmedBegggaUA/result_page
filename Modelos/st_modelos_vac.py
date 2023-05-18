@@ -164,9 +164,9 @@ try:
             h7_waning_europe['mes_pertenencia'] = h7_waning_europe['mes_pertenencia'].astype(int)
             # Nos quedamos con las filas del mes elegido
             h7_waning_europe = h7_waning_europe[h7_waning_europe['month'] == fecha_elegida]
-            h7_waning_europe = h7_waning_europe.groupby(['mes_pertenencia']).mean().reset_index()
+            h7_waning_europe = h7_waning_europe.groupby(['mes_pertenencia'])
             h7_waning_europe['pred_h7_waning'] = h7_waning_europe['pred_h7_waning'].rolling(window=7, min_periods=1).mean()
-            h7_waning_europe['truth'] = h7_waning_europe['truth'].rolling(window=7, min_periods=1).mean()
+            h7_waning_europe['truth'] = h7_waning_europe['truth'].rolling(window=7, min_periods=1).mean().reset_index()
             
             h7_waning_none_europe['fecha'] = pd.to_datetime(h7_waning_none_europe['fecha'], format = '%Y-%m-%d')
             h7_waning_none_europe['month'] = h7_waning_none_europe['fecha'].dt.strftime('%Y-%m')
@@ -174,8 +174,8 @@ try:
             # Lo pasamos a entero
             h7_waning_none_europe['mes_pertenencia'] = h7_waning_none_europe['mes_pertenencia'].astype(int)
             h7_waning_none_europe = h7_waning_none_europe[h7_waning_none_europe['month'] ==fecha_elegida]
-            h7_waning_none_europe = h7_waning_none_europe.groupby(['mes_pertenencia']).mean().reset_index()
-            h7_waning_none_europe['pred_h7_waning'] = h7_waning_none_europe['pred_h7_waning'].rolling(window=7, min_periods=1).mean()
+            h7_waning_none_europe = h7_waning_none_europe.groupby(['mes_pertenencia'])
+            h7_waning_none_europe['pred_h7_waning'] = h7_waning_none_europe['pred_h7_waning'].rolling(window=7, min_periods=1).mean().reset_index()
 
             h7_waning_xprize_europe['fecha'] = pd.to_datetime(h7_waning_xprize_europe['fecha'], format = '%Y-%m-%d')
             h7_waning_xprize_europe['month'] = h7_waning_xprize_europe['fecha'].dt.strftime('%Y-%m')
@@ -183,8 +183,8 @@ try:
             # Lo pasamos a entero
             h7_waning_xprize_europe['mes_pertenencia'] = h7_waning_xprize_europe['mes_pertenencia'].astype(int)
             h7_waning_xprize_europe = h7_waning_xprize_europe[h7_waning_xprize_europe['month'] == fecha_elegida]
-            h7_waning_xprize_europe = h7_waning_xprize_europe.groupby(['mes_pertenencia']).mean().reset_index()
-            h7_waning_xprize_europe['pred_h7_waning'] = h7_waning_xprize_europe['pred_h7_waning'].rolling(window=7, min_periods=1).mean()
+            h7_waning_xprize_europe = h7_waning_xprize_europe.groupby(['mes_pertenencia'])
+            h7_waning_xprize_europe['pred_h7_waning'] = h7_waning_xprize_europe['pred_h7_waning'].rolling(window=7, min_periods=1).mean().reset_index()
             
             fig = go.Figure()
             fig.add_trace(go.Scatter(x = h7_waning_europe['fecha'], y = h7_waning_europe['pred_h7_waning'], name = "H7 & VacW SVIR", line = dict(color = 'red', width = 2)))
