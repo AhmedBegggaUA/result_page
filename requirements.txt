@@ -1,9 +1,10 @@
 seaborn
 matplotlib
-streamlit == 1.13
-pandas >  1.2.4
+streamlit == 0.87
+pandas == 1.2.4
 keybert
 flair
 click<8
 plotly
 altair<5
+
