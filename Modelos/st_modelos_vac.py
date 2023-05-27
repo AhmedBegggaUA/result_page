@@ -21,9 +21,6 @@ import plotly.graph_objects as go
 import sys
 #sys.path.append('C:/Users/Sergio/Documents/valencia-ia4covid-xprize-master/valencia-ia4covid-xprize-master')
 
-logo = 'https://ellisalicante.org/assets/xprize/images/logo_oscuro.png'
-carpeta = 'C:/Users/Sergio/Documents/valencia-ia4covid-xprize-master/valencia-ia4covid-xprize-master/'
-
 st.set_page_config(layout = 'wide')
 
 @st.cache
@@ -108,7 +105,7 @@ try:
             h7_waning['fecha'] = pd.to_datetime(h7_waning['fecha'])
             h7_waning['month'] = h7_waning['fecha'].dt.strftime('%Y-%m')
             h7_waning = h7_waning[h7_waning['month'] == months_list_short[idx]]
-            h7_waning = h7_waning.groupby(['CountryName','fecha']).mean().reset_index()
+            h7_waning = h7_waning.groupby(['fecha']).mean().reset_index()
             h7_waning['pred'] = h7_waning['pred'].rolling(window=7, min_periods=1).mean()
             h7_waning['pred_sir'] = h7_waning['pred_sir'].rolling(window=7, min_periods=1).mean()
             h7_waning['truth'] = h7_waning['truth'].rolling(window=7, min_periods=1).mean()
@@ -117,7 +114,7 @@ try:
             h7_casos['fecha'] = pd.to_datetime(h7_casos['fecha'])
             h7_casos['month'] = h7_casos['fecha'].dt.strftime('%Y-%m')
             h7_casos = h7_casos[h7_casos['month'] == months_list_short[idx]]
-            h7_casos = h7_casos.groupby(['CountryName','fecha']).mean().reset_index()
+            h7_casos = h7_casos.groupby(['fecha']).mean().reset_index()
             h7_casos['pred'] = h7_casos['pred'].rolling(window=7, min_periods=1).mean()
             h7_casos['pred_sir'] = h7_casos['pred_sir'].rolling(window=7, min_periods=1).mean()
             
@@ -125,7 +122,7 @@ try:
             none_waning['fecha'] = pd.to_datetime(none_waning['fecha'])
             none_waning['month'] = none_waning['fecha'].dt.strftime('%Y-%m')
             none_waning = none_waning[none_waning['month'] == months_list_short[idx]]
-            none_waning = none_waning.groupby(['CountryName','fecha']).mean().reset_index()
+            none_waning = none_waning.groupby(['fecha']).mean().reset_index()
             none_waning['pred'] = none_waning['pred'].rolling(window=7, min_periods=1).mean()
             none_waning['pred_sir'] = none_waning['pred_sir'].rolling(window=7, min_periods=1).mean()
             
@@ -133,7 +130,7 @@ try:
             none_casos['fecha'] = pd.to_datetime(none_casos['fecha'])
             none_casos['month'] = none_casos['fecha'].dt.strftime('%Y-%m')
             none_casos = none_casos[none_casos['month'] == months_list_short[idx]]
-            none_casos = none_casos.groupby(['CountryName','fecha']).mean().reset_index()
+            none_casos = none_casos.groupby(['fecha']).mean().reset_index()
             none_casos['pred'] = none_casos['pred'].rolling(window=7, min_periods=1).mean()
             none_casos['pred_sir'] = none_casos['pred_sir'].rolling(window=7, min_periods=1).mean()
             
@@ -141,7 +138,7 @@ try:
             xprize['fecha'] = pd.to_datetime(xprize['fecha'])
             xprize['month'] = xprize['fecha'].dt.strftime('%Y-%m')
             xprize = xprize[xprize['month'] == months_list_short[idx]]
-            xprize = xprize.groupby(['CountryName','fecha']).mean().reset_index()
+            xprize = xprize.groupby(['fecha']).mean().reset_index()
             xprize['pred'] = xprize['pred'].rolling(window=7, min_periods=1).mean()
             xprize['pred_sir'] = xprize['pred_sir'].rolling(window=7, min_periods=1).mean()
             
