@@ -1,5 +1,5 @@
 seaborn
 matplotlib
-pandas==1.4.1
+pandas>1.4.1
 plotly
 scikit-learn
