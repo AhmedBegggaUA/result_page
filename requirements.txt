@@ -2,3 +2,4 @@ seaborn
 matplotlib
 pandas==1.4.1
 plotly
+sklearn
