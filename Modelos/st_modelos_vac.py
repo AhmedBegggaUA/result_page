@@ -7,18 +7,13 @@ Created on Sun Jan 29 11:11:21 2023
 
 import streamlit as st
 import pandas as pd
-import altair as alt
-from PIL import Image
 from sklearn.metrics import mean_squared_error
 from sklearn.metrics import mean_absolute_error
-import json
-import logging
 import numpy as np
 # Fix the random seed
 np.random.seed(1234)
 from urllib.error import URLError
 import plotly.graph_objects as go
-import sys
 #sys.path.append('C:/Users/Sergio/Documents/valencia-ia4covid-xprize-master/valencia-ia4covid-xprize-master')
 
 st.set_page_config(layout = 'wide')
