@@ -1,5 +1,5 @@
 datetime
-pandas==2.0.1
+pandas==1.4.1
 seaborn
 matplotlib
 plotly
